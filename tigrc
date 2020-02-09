@@ -1,0 +1,2 @@
+set show-changes = true
+bind main <Enter> view-diff
