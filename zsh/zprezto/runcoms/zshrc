@@ -1,0 +1,30 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+# Load confidential information like tokens or passwords
+if [ -e ~/.secrets ]; then
+  source ~/.secrets
+fi
+
+# Load all exports
+source ~/.shell/exports.sh
+
+# Load the functions
+source ~/.shell/functions.sh
+
+# Load the iTerm2 shell integration. Read more here: https://www.iterm2.com/documentation-shell-integration.html
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Aliases
+source ~/.shell/aliases.sh
