@@ -1,3 +1,7 @@
+;; You will most likely need to adjust this font size for your system!
+(defvar konafets/default-font-size 160)
+(defvar konafets/default-font-family "Source Code Pro")
+
 ;; disable startup message
 (setq inhibit-startup-message t)
 
@@ -20,7 +24,8 @@
 (setq visible-bell t)
 
 ;; Set the font face and font size
-(set-face-attribute 'default nil :font "Fira Code Retina" :height 180)
+;;(set-face-attribute 'default nil :font "Fira Code Retina" :height 180)
+(set-face-attribute 'default nil :font konafets/default-font-family :height konafets/default-font-size)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -100,7 +105,11 @@
   :after (ivy)
   :config (ivy-rich-mode 1))
 
-;; all the icons
+;; NOTE: The first time you load your configuration on a new machine, you'll
+;; need to run the following command interactively so that the mode line icons
+;; display correctly
+;;
+;; M-x all-the-icons-install-fonts
 (use-package all-the-icons)
 
 ;; modeline
@@ -117,7 +126,18 @@
 ;; markdown-mode
 (use-package markdown-mode
   :ensure t
-  :mode "\\.md\\'")
+  :mode (("README\\.md\\'" . gfm-mode)
+	 ("\\.md\\'" . markdown-mode)
+	 ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
+;; Enable Spellchecking
+(setq ispell-program-name "/opt/homebrew/bin/ispell")
+(setq ispell-dictionary "deutsch8")
+(setq ispell-local-dictionary "deutsch8")
+(setq flyspell-default-dictionary "deutsch8")
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
 
 ;;(global-set-key (kbd "C-x g") 'magit-status)
 
