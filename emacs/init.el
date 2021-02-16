@@ -116,18 +116,6 @@
 	 ("C-s" . swiper)
 	 ("C-x C-f" . counsel-find-file)))
 
-;; Use Ivy and Counsel for completions
-;(global-set-key (kbd "M-y") 'counsel-yank-pop)
-;(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-;(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-;(global-set-key (kbd "<f1> l") 'counsel-find-library)
-;(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-;(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-;(global-set-key (kbd "<f2> j") 'counsel-set-variable)
-;(global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-;(global-set-key (kbd "C-c v") 'ivy-push-view)
-;(global-set-key (kbd "C-c V") 'ivy-pop-view)
-
 ;; ivy-rich
 (use-package ivy-rich
   :ensure t
@@ -175,13 +163,7 @@
   (add-hook hook (lambda () (flyspell-mode 1))))
 
 
-;;(global-set-key (kbd "C-x g") 'magit-status)
 
-;;(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
-;;(setq evil-want-keybinding nil)
-;(require 'evil)
-;(evil-mode 1)
-;;(evil-collection-init)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
