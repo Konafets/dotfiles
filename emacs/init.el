@@ -76,7 +76,7 @@
 ;; Load the theme
 (use-package doom-themes
   :ensure t 
-  :init (load-theme 'doom-one t))
+  :init (load-theme 'doom-one-light t))
 
 ;; WhichKey
 (use-package which-key
