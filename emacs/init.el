@@ -47,17 +47,46 @@
 			 ("org" . "https://orgmode.org/elpa/")
 			 ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 
 ;; use-package
-(unless (require 'use-package nil t) 
-  (package-refresh-contents)
-  (package-install 'use-package)
-  (setq use-package-always-ensure t))
+;; Initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package)) ; grap the newest use-package
+
+;; Require use-package
+(require 'use-package)
+
+;; Always download if not available
+(setq use-package-always-ensure t)
+
+
+;; Enable line numbers
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some nodes
+(dolist (mode '(org-mode-hook
+		term-mode-hook
+		shell-mode-hook
+		eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;; Load the theme
 (use-package doom-themes
   :ensure t 
   :init (load-theme 'doom-one t))
+
+;; WhichKey
+(use-package which-key
+  :init
+  (which-key-mode)
+  :config
+  (setq which-key-idle-delay 0.3)
+  :diminish which-key-mode)
+
+(provide 'init-which-key)
 
 ;; ivy
 (use-package ivy
@@ -105,6 +134,12 @@
   :after (ivy)
   :config (ivy-rich-mode 1))
 
+
+;; Rainbow delimiters
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 ;; NOTE: The first time you load your configuration on a new machine, you'll
 ;; need to run the following command interactively so that the mode line icons
 ;; display correctly
@@ -139,6 +174,7 @@
 (dolist (hook '(text-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
 
+
 ;;(global-set-key (kbd "C-x g") 'magit-status)
 
 ;;(setq evil-want-integration t) ;; This is optional since it's already set to t by default.
@@ -146,13 +182,14 @@
 ;(require 'evil)
 ;(evil-mode 1)
 ;;(evil-collection-init)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(magit use-package markdown-mode ivy-rich doom-modeline counsel)))
+   '(which-key rainbow-delimiters magit use-package markdown-mode ivy-rich doom-modeline counsel)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
