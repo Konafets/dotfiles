@@ -183,6 +183,20 @@
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
+(add-hook 'org-mode-hook 'disable-evil-mode)
+
+;; Org-Mode
+(use-package org
+  :config
+  (setq org-direory "~/Library/Mobile Documents/com~apple~CloudDocs/Org")
+  (setq org-log-done 'time))
+
+(global-set-key (kbd "C-c o") 
+                (lambda () (interactive) (find-file "~/Library/Mobile Documents/com~apple~CloudDocs/Org/helloworld.org")))
+
+(setq org-agenda-files (list "~/Library/Mobile Documents/com~apple~CloudDocs/Org"))
+(setq org-agenda-start-on-weekday 1)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
